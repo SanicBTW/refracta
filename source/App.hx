@@ -21,7 +21,7 @@ class App
 
 	public function new()
 	{
-		trace(" [refracte/tests] starting tests ");
+		trace(" [refracta/tests] starting tests ");
 		enableGc();
 
 		strongRefTest();
