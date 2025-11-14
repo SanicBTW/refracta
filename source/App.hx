@@ -5,6 +5,8 @@ import core.Ref;
 import core.WeakRef;
 import ds.Queue;
 import ds.Stack;
+import threading.ScheduledDelegate;
+import threading.ScheduledDelegateWithData;
 #if cpp
 import cpp.vm.Gc;
 #end
@@ -86,6 +88,48 @@ class App
 		{
 			trace(exc);
 		}
+
+		var scheduledNorm:ScheduledDelegate = new ScheduledDelegate(scheduledFunc);
+		scheduledNorm.runTask();
+		trace(scheduledNorm.completed);
+		trace(scheduledNorm.state == COMPLETE);
+
+		var scheduledThrwn:ScheduledDelegate = new ScheduledDelegate(scheduleThrow);
+		scheduledThrwn.runTask();
+		trace(scheduledThrwn.cancelled);
+		trace(scheduledThrwn.state == CANCELLED);
+
+		var scheduledDataNorm:ScheduledDelegateWithData<String> = new ScheduledDelegateWithData<String>(scheduleDataPrint,
+			"Hello from a Scheduled Delegate with Data!");
+		scheduledDataNorm.runTask();
+		trace(scheduledDataNorm.completed);
+		trace(scheduledDataNorm.state == COMPLETE);
+
+		var scheduledDataThrwn:ScheduledDelegateWithData<String> = new ScheduledDelegateWithData<String>(scheduleDataThrow,
+			"Thrown inside a Scheduled Delegate with Data");
+		scheduledDataThrwn.runTask();
+		trace(scheduledDataThrwn.cancelled);
+		trace(scheduledDataThrwn.state == CANCELLED);
+	}
+
+	private static function scheduledFunc()
+	{
+		trace("Hello from Scheduled Delegate!");
+	}
+
+	private static function scheduleThrow()
+	{
+		throw "Thrown inside a Scheduled Delegate";
+	}
+
+	private static function scheduleDataPrint(str:String)
+	{
+		trace(str);
+	}
+
+	private static function scheduleDataThrow(str:String)
+	{
+		throw str;
 	}
 
 	public static function test():WeakRef<String>
