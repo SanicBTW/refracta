@@ -19,3 +19,7 @@ WeakRefs on JS are EXTREMELY weak and when I say this it's because they cannot s
 ### Exceptions
 
 Some parts of the code will throw a simple string instead of an exception, maybe I should extend the Exception class and make my own to properly throw.
+
+### Comments
+
+Can't help but NOT add comments while writing the code, the minimum is adding the links to the original file, but I know I should do better with comments, sorry.

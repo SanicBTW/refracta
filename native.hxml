@@ -8,6 +8,8 @@
 -D HXCPP_STACK_LINE
 -D no-deprecation-warnings
 
+-D SCHEDULED_TASK_WRAP
+
 -cp source
 --main App
 --cpp build/cpp/debug/

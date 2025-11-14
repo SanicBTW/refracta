@@ -4,6 +4,8 @@
 -D html5
 -D shallow-expose
 
+-D SCHEDULED_TASK_WRAP
+
 -cp source
 --main App
 --js build/js/debug/App.js
