@@ -16,43 +16,77 @@ class App
 {
 	public static function main()
 	{
+		new App();
+	}
+
+	public function new()
+	{
+		trace(" [refracte/tests] starting tests ");
+		enableGc();
+
+		strongRefTest();
+		scopedWeakRefTest();
+		cachedGenericTest();
+		queueTest();
+		stackTest();
+		scheduledDelegateTest();
+		scheduledDelegateWithDataTest();
+
+		trace(" [refracta/tests] all tests run ");
+	}
+
+	private function enableGc()
+	{
 		#if cpp
 		Gc.enable(true);
 		Gc.compact();
+		trace(" [refracta/gc] enabled cpp garbage collector ");
+		return;
 		#end
 
+		trace(" [refracta/gc] platform doesn't expose the garbage collector ");
+	}
+
+	private function strongRefTest()
+	{
 		final cock = new Ref<String>("hola");
 		trace(cock);
 		cock.set("adios");
 		trace(cock);
+	}
 
+	private function scopedWeakRefTest()
+	{
 		final cock2 = test();
 		trace("Got WeakRef instance from function scope as " + cock2);
 
-		#if cpp
-		Gc.compact();
-		Gc.run(true);
-		#end
-
-		trace("GC exec");
+		runGc();
 
 		final isNull:Bool = cock2.deref() == null;
 		trace("Is null? " + isNull);
 		trace("Value " + cock2);
+	}
 
-		final cockTest:CachedGeneric<String> = new CachedGeneric<String>("hola");
-		trace("Created cached generic: " + cockTest);
+	private static function test():WeakRef<String>
+	{
+		trace("Creating WeakRef inside a function");
+		final cock2 = new WeakRef<String>("hola mundo");
+		trace(cock2);
+		return cock2;
+	}
 
-		trace("Is valid? " + cockTest.isValid);
-		final invalidation = cockTest.invalidate();
+	private function cachedGenericTest()
+	{
+		final cachedGen:CachedGeneric<String> = new CachedGeneric<String>("hola");
+		trace("Created cached generic: " + cachedGen);
+
+		trace("Is valid? " + cachedGen.isValid);
+		final invalidation = cachedGen.invalidate();
 		trace("Invalidated? " + invalidation);
+	}
 
-		var reftest:Ref<Int> = new Ref<Int>(0);
-		trace(reftest);
-		reftest.set(1);
-		trace(reftest);
-		trace(reftest.deref());
-
+	private function queueTest()
+	{
 		var queue = new Queue<String>();
 		queue.enqueue("hola");
 		queue.enqueue("hola1");
@@ -62,7 +96,10 @@ class App
 		{
 			trace(cqe);
 		}
+	}
 
+	private function stackTest()
+	{
 		var stack = new Stack<String>();
 		stack.push("hola");
 		stack.push("hola1");
@@ -79,16 +116,10 @@ class App
 
 		for (str in stack)
 			trace(str);
+	}
 
-		try
-		{
-			cockTest.value = "adios";
-		}
-		catch (exc)
-		{
-			trace(exc);
-		}
-
+	private function scheduledDelegateTest()
+	{
 		var scheduledNorm:ScheduledDelegate = new ScheduledDelegate(scheduledFunc);
 		scheduledNorm.runTask();
 		trace(scheduledNorm.completed);
@@ -98,7 +129,24 @@ class App
 		scheduledThrwn.runTask();
 		trace(scheduledThrwn.cancelled);
 		trace(scheduledThrwn.state == CANCELLED);
+	}
 
+	private static function scheduledFunc()
+	{
+		trace("Hello from Scheduled Delegate!");
+	}
+
+	private static function scheduleThrow()
+	{
+		#if SCHEDULED_TASK_WRAP
+		throw "Thrown inside a Scheduled Delegate";
+		#else
+		trace("This would crash the tests, not handled");
+		#end
+	}
+
+	private function scheduledDelegateWithDataTest()
+	{
 		var scheduledDataNorm:ScheduledDelegateWithData<String> = new ScheduledDelegateWithData<String>(scheduleDataPrint,
 			"Hello from a Scheduled Delegate with Data!");
 		scheduledDataNorm.runTask();
@@ -112,16 +160,6 @@ class App
 		trace(scheduledDataThrwn.state == CANCELLED);
 	}
 
-	private static function scheduledFunc()
-	{
-		trace("Hello from Scheduled Delegate!");
-	}
-
-	private static function scheduleThrow()
-	{
-		throw "Thrown inside a Scheduled Delegate";
-	}
-
 	private static function scheduleDataPrint(str:String)
 	{
 		trace(str);
@@ -129,14 +167,22 @@ class App
 
 	private static function scheduleDataThrow(str:String)
 	{
+		#if SCHEDULED_TASK_WRAP
 		throw str;
+		#else
+		trace('This would crash the tests, not handled ($str)');
+		#end
 	}
 
-	public static function test():WeakRef<String>
+	private function runGc()
 	{
-		trace("Creating WeakRef inside a function");
-		final cock2 = new WeakRef<String>("hola mundo");
-		trace(cock2);
-		return cock2;
+		#if cpp
+		Gc.compact();
+		Gc.run(true);
+		trace(" [refracta/gc] garbage collect executed ");
+		return;
+		#end
+
+		trace(" [refracta/gc] can't garbage collect manually on this platform ");
 	}
 }
