@@ -1,0 +1,17 @@
+{
+    "name": "refracta",
+    "url": "https://github.com/SanicBTW/refracta",
+    "license": "MIT",
+    "tags": ["framework", "cross"],
+    "description": "A cross-platform \"framework\" that has some osu!framework goodies",
+    "version": "0.0.1-beta.1",
+    "releasenote": "Initial Release",
+    "contributors": ["SanicBTW"],
+    "classPath": "source",
+    "dependencies": {
+        "hxasync": "",
+        "blastween": "",
+        "console.hx": "",
+        "scopes": ""
+    }
+}

@@ -1,0 +1,9 @@
+--debug
+
+-D js_es=6
+-D html5
+-D shallow-expose
+
+-cp source
+--main App
+--js build/js/debug/App.js
