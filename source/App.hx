@@ -9,6 +9,7 @@ import ds.Stack;
 import cpp.vm.Gc;
 #end
 
+// this currently serves as the testing entry point for the classes of the library
 class App
 {
 	public static function main()

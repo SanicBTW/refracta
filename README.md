@@ -12,6 +12,12 @@ Also this code doesn't contain a SINGLE bit of thread-safe code unlike the C# co
 
 This project is still somewhat barebones, even if I use it on 2 of my projects, it SHOULD work out of the box.
 
+##### Lil' fun fact!
+
+This project is originated from 2 of my projects, since they share the codebase and I've been modifying both of them to suit my needs
+
+sometimes the other project lacks the changes of the other one AND I'm lazy to sync it properly, so it's better if I just do it a library.
+
 ### Libraries
 
 hxasync for JS and Python targets to add support for the async attribute, on native targets this shouldn't be evaluated at any point, rather it will use another library for native async support.
