@@ -23,3 +23,14 @@ Some parts of the code will throw a simple string instead of an exception, maybe
 ### Comments
 
 Can't help but NOT add comments while writing the code, the minimum is adding the links to the original file, but I know I should do better with comments, sorry.
+
+### Clocks
+
+This code HASN'T changed and is not any different from my original code from my projects and the code itself can be pretty messy, overall I'll try to keep up with changes from osu!framework changes
+
+Currently some clocks need a reference clock, previously it was bound to `BrowserClock` but since this library is meant to be cross-platform
+I have to write a cross-platform implementation of the clock.
+
+[21/11] Commit day
+
+I've been working on the clocks for the past week, I stumbled upon ThrottledFramedClock for a variety of reasons it won't be included for a while, one of them being to heavily depend on the throttled clock and sleep on the tick call rather than sleeping when updating, kinda weird, also the implementation I did for RealTimeClock doesn't convince me enough but I'll leave it like this until I start working on the dependency container that will englobe the entire library.

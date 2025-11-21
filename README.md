@@ -22,6 +22,8 @@ sometimes the other project lacks the changes of the other one AND I'm lazy to s
 
 hxasync for JS and Python targets to add support for the async attribute, on native targets this shouldn't be evaluated at any point, rather it will use another library for native async support.
 
+scopes for the `finally` behaviour on a try-catch block
+
 ### The refracta family
 
 THIS is refracta.core (not named after it because I thought that without an extension it already looked like something as the base of the family) and there's a couple more of libraries on the works that could work out of the box too.

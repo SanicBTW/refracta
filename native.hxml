@@ -10,6 +10,8 @@
 
 -D SCHEDULED_TASK_WRAP
 
+--library scopes
+
 -cp source
 --main App
 --cpp build/cpp/debug/

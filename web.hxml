@@ -6,6 +6,9 @@
 
 -D SCHEDULED_TASK_WRAP
 
+--library scopes
+--library hxasync
+
 -cp source
 --main App
 --js build/js/debug/App.js
