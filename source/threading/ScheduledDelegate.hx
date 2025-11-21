@@ -9,6 +9,7 @@ enum RunState
 	CANCELLED;
 }
 
+@:allow(threading.Scheduler)
 class ScheduledDelegate
 {
 	private var _executionTime:Float;

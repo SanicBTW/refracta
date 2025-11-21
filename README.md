@@ -22,13 +22,15 @@ sometimes the other project lacks the changes of the other one AND I'm lazy to s
 
 hxasync for JS and Python targets to add support for the async attribute, on native targets this shouldn't be evaluated at any point, rather it will use another library for native async support.
 
-scopes for the `finally` behaviour on a try-catch block
+scopes for the `finally` behaviour on a try-catch block.
+
+haxe-injection for the Dependency Container, a base dependency container will be created and populated from the main entry point of the application, while all the objects of the framework could be potentially dependant of their parent dependencies (early idea, not implemented)
 
 ### The refracta family
 
 THIS is refracta.core (not named after it because I thought that without an extension it already looked like something as the base of the family) and there's a couple more of libraries on the works that could work out of the box too.
 
 - `refracta.preloader` - A simple preloader that can work with any project, embeds the specified folder. On JS targets it can export the preloaded content into a separate file, reducing the size of the main JS file.
-- `refracta.injection` - A fork of [haxe-injection]() for the framework to plug it somewhat deeper into the framework while adding the `BackgroundDependencyLoader` attribute as a macro and more.
+- `refracta.injection` - A fork of [haxe-injection]() for the framework to plug it somewhat deeper into the framework while adding the `BackgroundDependencyLoader` attribute as a macro and more. (idea refined, macro will be added here instead of a separate library)
 - `refracta.async` - A fork of [hxasync]() which fixes an issue with the async macro and adds a bridge to another library with native async support.
 - `refracta.events` - An event manager with macros and a basic event system (similar to AetherFramework Events System).

@@ -11,6 +11,7 @@
 -D SCHEDULED_TASK_WRAP
 
 --library scopes
+--library haxe-injection
 
 -cp source
 --main App

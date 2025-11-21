@@ -8,6 +8,7 @@
 
 --library scopes
 --library hxasync
+--library haxe-injection
 
 -cp source
 --main App

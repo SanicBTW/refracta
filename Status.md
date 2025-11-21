@@ -34,3 +34,9 @@ I have to write a cross-platform implementation of the clock.
 [21/11] Commit day
 
 I've been working on the clocks for the past week, I stumbled upon ThrottledFramedClock for a variety of reasons it won't be included for a while, one of them being to heavily depend on the throttled clock and sleep on the tick call rather than sleeping when updating, kinda weird, also the implementation I did for RealTimeClock doesn't convince me enough but I'll leave it like this until I start working on the dependency container that will englobe the entire library.
+
+### Scheduler
+
+Since everything is expected to be run on the main thread exclusively, no thread safety was added (not only to the scheduler but to the entire code) hence the scheduler lacking some parts of the original c# code, like `IsMainThread`, `forceScheduled` etc...
+
+On AddOnceWithData the generic check trick was originally gonna be different, trying to check the type of `t` against `ScheduledDelegateWithData` but testing it on a more [barebones code](https://try.haxe.org/#1A185b8f) it would result on a skip and then I came up with the [string comparison](https://try.haxe.org/#253436d0) which requires the `@:generic` metadata in order to work.
