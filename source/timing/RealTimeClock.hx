@@ -68,9 +68,10 @@ class RealTimeClock implements IAdjustableClock
 	private function get_clockMilliseconds():Float
 		return elapsedTicks / frequency * 1000;
 
-	public function new(startClock:Bool = false)
+	public function new(startClock:Bool = false, startPlatformClock:Bool = true)
 	{
-		#if sys new SysClock(this); #elseif js new WebClock(this); #end
+		if (startPlatformClock)
+			#if sys new SysClock(this); #elseif js new WebClock(this); #end
 
 		if (startClock)
 			start();
