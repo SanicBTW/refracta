@@ -154,7 +154,7 @@ class Bindable<T>
 
 	// it should be a LockedWeakList, since the implementation of locks could potentially be different between platforms
 	// I'm afraid I won't be implementing any of it for now
-	private var bindings:Null<Array<WeakRef<Bindable<T>>>> = null;
+	private var bindings:Array<WeakRef<Bindable<T>>> = [];
 
 	/**
 		An alias of `bindTo` provided for use in object initializer scenarios.
@@ -227,10 +227,7 @@ class Bindable<T>
 	}
 
 	private function addWeakReference(weakReference:WeakRef<Bindable<T>>)
-	{
-		bindings ??= [];
 		bindings.push(weakReference);
-	}
 
 	private function removeWeakReference(weakReference:WeakRef<Bindable<T>>)
 		bindings.remove(weakReference);
